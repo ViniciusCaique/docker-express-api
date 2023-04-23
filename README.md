@@ -15,6 +15,30 @@ _**docker-compose up -d --build**_
 ### -h: localhost, -P: porta, --potrocol=tcp: é opcional e habilita aplicações trocarem mensagem com a network, -u: usuario, -p: passwordd, não é bom informar na linha de código. 
 _**mysql -h localhost -P 3306 --protocol=tcp -u {username} -p**_
 
+### Entrar como root 
+_**create user 'gojo'@'localhost' IDENTIFIED BY'adm123';**_
+
+### Dar privilégio para o usuario
+_**grant all privileges on . to 'gojo'@'localhost' with grant option;**_
+
+_**Exit**_
+
+### Entrar na conta do usuário
+_**mysql -u gojo -p**_
+
+### Criar a tabela de usuario
+_**CREATE TABLE usuarios (
+    id_user INT NOT NULL AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL,
+    eamil VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (id_user),
+    CONSTRAINT UQ_Usuarios_Email UNIQUE (email)
+);**_
+
+### Exit
+
 
 ### Encerra o docker compose:
 _**docker-compose down**_
