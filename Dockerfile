@@ -7,12 +7,10 @@ COPY package*.json ./
 
 RUN npm install 
 
-# -s /bin/sh gojo
+RUN adduser -s /bin/sh fernando;echo 'fernando:adm123' || 'adm123'
+USER fernando
 
-# RUN adduser --home /home/gojo 
-
-# USER gojo
-# RUN whoami
+RUN whoami
 
 COPY . . 
 
