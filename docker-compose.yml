@@ -1,0 +1,49 @@
+
+services:
+
+  db:
+    image: mysql:8.0
+    container_name: db
+    ports:
+      - 3306:3306
+    expose:
+      - 3306
+    environment:
+      MYSQL_DATABASE: investmentdb
+      MYSQL_USER: adm
+      MYSQL_PASSWORD: adm123
+      MYSQL_ROOT_PASSWORD: adm123
+      SERVICE_TAGS: prod
+      SERVICE_NAME: db
+    networks:
+      - internalnet
+
+  app:
+    container_name: nodeappcontainer
+    build: .
+    image: nodeap:v1
+    volumes:
+      - ./db/schema.sql:/docker-entrypoint-initdb.d/0_init.sql
+      - $HOME/database:/var/lib/mysql
+    ports:
+      - 3030:3030
+    expose:
+      - 3030
+    environment:
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_USER: 'adm'
+      DB_PASSWORD: 'adm123'
+      DB_NAME: investmentdb
+      DB_CONNECTION_LIMIT: 20
+      SERVICE_TAGS: prod
+      SERVICE_NAME: nodeappservice
+      SERVER_PORT: 3030
+    depends_on:
+      - db
+    networks:
+      - internalnet
+
+networks:
+  internalnet:
+    driver: bridge

@@ -1,0 +1,14 @@
+CREATE DATABASE IF NOT EXISTS investmentdb;
+
+USE investmentdb;
+
+DROP TABLE IF EXISTS usuarios;
+
+CREATE TABLE usuarios (
+    id INT NOT NULL AUTO_INCREMENT,
+    nome VARCHAR(255) DEFAULT NULL,
+    email VARCHAR(255) DEFAULT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (id),
+    CONSTRAINT UQ_Usuarios_Email UNIQUE (email)
+);
